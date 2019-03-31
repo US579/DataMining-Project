@@ -3,7 +3,7 @@
 .vscode
 .pyc
 
-venv/
+**/venv/
 **/__pycache__/
 .txt
 .DS_Store
