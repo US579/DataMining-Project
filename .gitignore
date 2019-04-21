@@ -69,7 +69,6 @@ instance/
 # Sphinx documentation
 docs/_build/
 
-<<<<<<< HEAD
 # PyBuilder
 target/
 
@@ -100,9 +99,7 @@ ENV/
 .ropeproject
 
 #others
-=======
 **/venv/
 **/__pycache__/
 .txt
->>>>>>> 42bdf6a70c8dfe1f66668bb8cda0ce0d09a2a265
 .DS_Store
