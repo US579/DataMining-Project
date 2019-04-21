@@ -2,13 +2,14 @@
 import numpy as np
 import pandas as pd
 from collections import defaultdict
-
+import math
 # Question 1
 def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the heading of the function
     states = []
-    observations = []
+    sym = []
     with open(State_File) as f1:
         n1 = int(f1.readline())
+        Pi = {k: 0 for k in range(n1)}
         distance = [[0 for _ in range(n1)] for _ in range(n1)]
         transition_probability = [[0 for _ in range(n1)] for _ in range(n1)]
         for i in range(n1):
@@ -19,18 +20,19 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
             distance[int(i[0])][int(i[1])] = int(i[2])
         for i in range(n1):
             for j in range(n1):
-                if j == states.index("END") or i == states.index("BEGIN"):
-                    print('{} {}'.format(i,j))
+                end, begin =  states.index("END"),states.index("BEGIN")
+                if i == end or i == begin or j == end or j == begin :
+                    if i ==  begin:
+                        Pi[j] = (float(distance[i][j])) / (sum(distance[i]))
                     continue
                 transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
-
 
     with open(Symbol_File) as f2:
         n2 = int(f2.readline())
         emission_probability = [[0 for _ in range(n2)] for _ in range(n2)]
         distance2 = [[0 for _ in range(n2)] for _ in range(n2)]
         for i in range(n2):
-            observations.append(f2.readline().strip())
+            sym.append(f2.readline().strip())
         st2 = f2.readlines()
         lis2 = [j.strip().split() for j in st2]
     for i in lis2:
@@ -39,27 +41,50 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
         for j in range(n2):
             emission_probability[i][j] = (float(distance2[i][j])+1) / (sum(distance2[i]) + n2 +1)
 
-    pi = {0:1/5,1:1/5,2:1/5,3:1/5,4:1/5}
-    obs = []
-    #print(states)
-    #print(observations)
-    #print(transition_probability)
-    #print(emission_probability)
+    with open(Query_File) as f3:
+        n3 = f3.readlines()
+        obs = [x.strip().split() for x in n3]
+        obs = obs[1]
+    #
+    print('obs',obs)
+    # print('states',states)
+    # print('sym',sym)
+    # print('transition_probability',transition_probability)
+    # print('emission_probability',emission_probability)
+    # print(Pi)
 
-    #transition_probability = np.array(transition_probability)
-    #emission_probability = np.array(emission_probability)
-    #pi = np.array(pi)
-    print(transition_probability)
-    print(emission_probability)
-    v = [{}]
-    path = dict()
-    print(states)
-    print(n1)
-    for y in range(n2):
-        v[0][y] = pi[y] * emission_probability[y][0]
-        path[y] = [y]
-    print(v)
+    path = {s:[] for s in states}
+
+    curr_pro = {}
+    for s in states[:len(states)-2]:
+        curr_pro[s] = Pi[states.index(s)]*emission_probability[states.index(s)][sym.index(obs[0])]
+    for i in range(1,len(obs)):
+        last_pro = curr_pro
+        curr_pro = {}
+        for cur in range(len(states[:len(states)-2])):
+
+            try:
+                max_pr,last_pr = max(((last_pro[k] * transition_probability[states.index(k)][cur]*
+                                       emission_probability[cur][sym.index(obs[i])], k) for k in states[:3]))
+            except:
+                max_pr, last_pr = max(((last_pro[k] * transition_probability[states.index(k)][cur] *
+                                        ( 1 / 2 + n2) , k) for k in states[:3]))
+            curr_pro[states[cur]] = max_pr
+            path[states[cur]].append(last_pr)
+
+    max_pro=max(curr_pro,key=lambda x:curr_pro[x])
+    print(math.log(curr_pro[max_pro]))
+
+
+
+
+
+
+    print(curr_pro)
     print(path)
+
+
+
 
 
 
