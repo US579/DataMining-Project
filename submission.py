@@ -45,19 +45,20 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
         n3 = f3.readlines()
         obs = [x.strip().split() for x in n3]
         obs = obs[1]
-    #
+
     print('obs',obs)
-    # print('states',states)
-    # print('sym',sym)
-    # print('transition_probability',transition_probability)
-    # print('emission_probability',emission_probability)
-    # print(Pi)
+    print('states',states)
+    print('sym',sym)
+    print('transition_probability',transition_probability)
+    print('emission_probability',emission_probability)
+    print('Pi',Pi)
 
     path = {s:[] for s in states}
 
     curr_pro = {}
     for s in states[:len(states)-2]:
         curr_pro[s] = Pi[states.index(s)]*emission_probability[states.index(s)][sym.index(obs[0])]
+    print(curr_pro)
     for i in range(1,len(obs)):
         last_pro = curr_pro
         curr_pro = {}
@@ -68,20 +69,19 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
                                        emission_probability[cur][sym.index(obs[i])], k) for k in states[:3]))
             except:
                 max_pr, last_pr = max(((last_pro[k] * transition_probability[states.index(k)][cur] *
-                                        ( 1 / 2 + n2) , k) for k in states[:3]))
+                                        ( 1 / obs.count(obs[i]) + n2 + 1 ) , k) for k in states[:3]))
             curr_pro[states[cur]] = max_pr
             path[states[cur]].append(last_pr)
 
-    max_pro=max(curr_pro,key=lambda x:curr_pro[x])
-    print(math.log(curr_pro[max_pro]))
+    max_pr=max(curr_pro,key=lambda x:curr_pro[x])
+    print(math.log(curr_pro[max_pr]))
+    lis_z = [3,states.index(max_pr)]
+    for i in path[max_pr]:
+        lis_z.append(states.index(i))
+    lis_z.extend([4,math.log(curr_pro[max_pr])])
+    print(lis_z)
 
 
-
-
-
-
-    print(curr_pro)
-    print(path)
 
 
 
