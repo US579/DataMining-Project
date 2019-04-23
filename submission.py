@@ -21,22 +21,23 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
                 transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
     with open(Symbol_File) as f2:
         n2 = int(f2.readline())
-        emission_probability = np.zeros((n2,n2))
-        distance2 = np.zeros((n2,n2))
+        emission_probability = {}
+        distance2 = {}
         for i in range(n2):
             sym.append(f2.readline().strip())
         st2 = f2.readlines()
         lis2 = [j.strip().split() for j in st2]
     for i in lis2:
-        distance2[int(i[0])][int(i[1])] = int(i[2])
+        distance2[i[0]+'-'+i[1]] = int(i[2])
     dic_distance = {}
     for i in lis2:
         if int(i[0]) not in dic_distance:
             dic_distance[int(i[0])] = int(i[2])
         else:
             dic_distance[int(i[0])] += int(i[2])
+
     for i in lis2:
-        emission_probability[int(i[0])][int(i[1])] =(float(i[2])+1) / (dic_distance[int(i[0])] + n2 +1)
+        emission_probability[i[0]+'-'+i[1]] =(float(i[2])+1) / (dic_distance[int(i[0])] + n2 +1)
     with open(Query_File) as f3:
         n3 = f3.readlines()
         obs = [x.strip().split() for x in n3]
@@ -58,17 +59,16 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
     obs = lis_s
     lis = []
     for obs in obs:
-        lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,distance2,n2,dic_distance))
-    # obs = obs[0]
-    # lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,distance2,n2,dic_distance))
+        lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
     return lis
 
-def viterbi(states,obs,transition_probability,emission_probability,sym,distance2,n2,dic_distance):
+def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance):
     path = {s:[] for s in states}
     curr_pro = {}
     for s in states[:-2]:
         try:
-            curr_pro[s] = math.log(transition_probability[len(states)-2][states.index(s)]) + math.log(emission_probability[states.index(s)][sym.index(obs[0])])
+            curr_pro[s] = math.log(transition_probability[len(states)-2][states.index(s)])+\
+                          math.log(emission_probability[str(states.index(s))+'-'+str(sym.index(obs[0]))])
         except:
             curr_pro[s] = math.log(transition_probability[len(states)-2][states.index(s)]) + math.log((1/(dic_distance[states.index(s)]+n2 +1)))
     for i in range(1,len(obs)):
@@ -76,15 +76,15 @@ def viterbi(states,obs,transition_probability,emission_probability,sym,distance2
         curr_pro = {}
         for cur in range(len(states[:-2])):
             try:
-                if emission_probability[cur][sym.index(obs[i])] == 0.0:
+                if str(cur)+'-'+str(sym.index(obs[i])) not in emission_probability:
                     emission_rate = 1.0 / (dic_distance[cur] + n2 +1)
                 else:
-                    emission_rate = emission_probability[cur][sym.index(obs[i])]
+                    emission_rate = emission_probability[str(cur)+'-'+str(sym.index(obs[i]))]
                 (max_pr,last_state) = max([(last_pro[k]+math.log(transition_probability[states.index(k)][cur])+
                                             math.log(emission_rate), k) for k in states[:-2]])
             except:
                 (max_pr,last_state) = max([(last_pro[k] +math.log(transition_probability[states.index(k)][cur])+
-                                            math.log (1.0/(sum(distance2[cur])+n2 +1)) , k) for k in states[:-2]])
+                                            math.log (1.0/(dic_distance[cur]+n2 +1)) , k) for k in states[:-2]])
 
             curr_pro[states[cur]] = max_pr
             path[states[cur]].append(last_state)
