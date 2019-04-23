@@ -5,7 +5,7 @@ HMM decription
 -----------
 ![image text](https://github.com/US579/DataMining-Project/blob/master/image/HMM.png)
 
-###1.Tansition Probilities
+### 1.Tansition Probilities
 
 The blue line represent the  initial probability which can be deemed as equivalent to transition probabilities from the BEGIN state to all the hidden state
 
@@ -16,7 +16,7 @@ for s in states[:-2]:
     transition_probability[len(states)-2][states.index(s)])
 ```
 
-###2.Emission Probilities  
+### 2.Emission Probilities  
 
 The red line represent its emission probability from state after smoothing is 
 
