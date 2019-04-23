@@ -41,12 +41,21 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
     with open(Query_File) as f3:
         n3 = f3.readlines()
         obs = [x.strip().split() for x in n3]
+    obs = split(obs)
+    lis = []
+    for obs in obs:
+        lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
+    return lis
 
+def split(obs):
     flag = [',','(',')','/']
     lis_sym = []
     lis_s = []
     for k in obs:
         for v in k:
+            if v in flag:
+                lis_sym.append(v)
+                continue
             if v[0] in flag:
                 lis_sym.extend([v[0],v[1:]])
                 continue
@@ -56,11 +65,7 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
             lis_sym.append(v)
         lis_s.append(lis_sym)
         lis_sym = []
-    obs = lis_s
-    lis = []
-    for obs in obs:
-        lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
-    return lis
+    return lis_s
 
 def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance):
     path = {s:[] for s in states}
