@@ -26,4 +26,13 @@ If the symbol is an unknown symbol, its emission probability from state after sm
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=B[i,j]=\frac{1}{n(i)&plus;M&plus;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?B[i,j]=\frac{1}{n(i)&plus;M&plus;1}" title="B[i,j]=\frac{1}{n(i)+M+1}" /></a>
 
-
+```
+for i in range(1,len(obs)):
+    for cur in range(len(states[:-2])):
+                #if there is no emission from states `cur` to observation `sym.index(obs[i])`(this is the index in the symbol list),we us add one smoothing (in case it is 0)
+                if str(cur)+'-'+str(sym.index(obs[i])) not in emission_probability:
+                    emission_rate = 1.0 / (dic_distance[cur] + n2 +1)
+                else:
+                #otherwise i will use the formula below
+                    emission_rate = emission_probability[str(cur)+'-'+str(sym.index(obs[i]))]
+```
