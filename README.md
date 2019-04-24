@@ -1,9 +1,20 @@
 # DataMining-Project
 
+How to run
+-----------
+Dataset in this case :
+```
+State_File ='./toy_example/State_File'
+Symbol_File='./toy_example/Symbol_File'
+Query_File ='./toy_example/Query_File'
+```
+simple run:
+```
+python3 submission.py
+```
 
 HMM decription
 -----------
-![image text](https://github.com/US579/DataMining-Project/blob/master/image/HMM.png)
 
 In this case above, the output of the implicit sequence is
 
@@ -12,7 +23,7 @@ In this case above, the output of the implicit sequence is
 ```
 
 with log probility `-9.843403381747937`
-
+![image text](https://github.com/US579/DataMining-Project/blob/master/image/HMM.png)
 
 ### 1.Initial Probilities 
 
