@@ -1,4 +1,4 @@
-# DataMining-Project![US579](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)
+# DataMining-Project![US579](https://img.shields.io/static/v1.svg?label=<LABEL>&message=<MESSAGE>&color=<COLOR>)
 
 How to run
 -----------
