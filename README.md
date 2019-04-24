@@ -86,7 +86,35 @@ If you use the brute-force method to exhaust all possible state sequences and co
 
 we can consider this probelm as dynamic programming , the last_state is the probability of each implicit state corresponding to the previous observed phenomenon, and curr_pro is the probability of each implicit state corresponding to the current observed phenomenon. Solving cur_pro actually depends only on last_state, this is core thinking of Vitberi Algorithem.
 
-
+#### MAIN ALGORITHEM
+```
+def Viterbi_Algorithm(states,obs,emission_probability,transition_probability):
+        '''
+        caculate maximum probility of the path , and return as a dict,
+        :argument
+            :type dict
+            states : the states 
+            emission_probability : the two-dimension array cotains the emission probility(I use dict here) 
+            transition_probability : the two-dimension array cotains the transition probility
+            obs : observation sequence
+        :return
+            A dic
+        '''
+        for s in states:
+            # caculate the initial state probility also count the first emission probility from observation
+            curr_pro[s] = math.log(transition_probability[len(states)-2][states.index(s)])+\
+                          math.log(emission_probability[states.index(s))],[sym.index(obs[0]))])
+        #caculate the rest obervation sequence
+        for i in range(1,len(obs)):
+            last_pro = curr_pro
+            curr_pro = {}
+            for cur in range(len(states)):
+                    (max_pr,last_state) = max([(last_pro[k]+math.log(transition_probability[states.index(k)][cur])+
+                                                math.log(emission_rate), k) for k in states])
+                curr_pro[states[cur]] = max_pr
+                path[states[cur]].append(last_state)
+        return path
+```
 
 
 ## Author
