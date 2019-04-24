@@ -1,8 +1,32 @@
 # DataMining-Project
 
-
-HMM decription
+How to run
 -----------
+Dataset in this case :
+```
+State_File ='./toy_example/State_File'
+Symbol_File='./toy_example/Symbol_File'
+Query_File ='./toy_example/Query_File'
+```
+simple run:
+```
+python3 submission.py
+```
+
+HMM and Viterbi Algorithem decription
+-----------
+
+In this case below, the output of the implicit sequence is
+
+```
+[3, 0, 0, 1, 2, 4, -9.843403381747937]
+```
+with log probility `-9.843403381747937` which is largest probility
+##### Parameter breakdown
+```
+0:S1       1:S2      2:S3     3:BEGIN      4:END
+```
+
 ![image text](https://github.com/US579/DataMining-Project/blob/master/image/HMM.png)
 
 ### 1.Initial Probilities 
@@ -50,7 +74,7 @@ the number of state_i transfer to state_j divide by the total number of transfer
 
 ### 3.Viterbi Algorithm
 
-for HMM, the most useful function is to find the most likely hddien sequence according to its observation,In general, the HMM problem can be described by the following five elements: 
+for HMM, the most useful function is to find the most likely implicit sequence according to its observation,In general, the HMM problem can be described by the following five elements: 
 ```
 observations ：we observed phenomenon sequence
 states ：all the possible implicit states
