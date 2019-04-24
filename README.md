@@ -5,6 +5,15 @@ HMM decription
 -----------
 ![image text](https://github.com/US579/DataMining-Project/blob/master/image/HMM.png)
 
+In this case above, the output of the implicit sequence is
+
+```
+[3, 0, 0, 1, 2, 4, -9.843403381747937]
+```
+
+with log probility `-9.843403381747937`
+
+
 ### 1.Initial Probilities 
 
 The blue line represent the  initial probability (Pi) which can be deemed as equivalent to transition probabilities from the BEGIN state to all the implicit state
@@ -50,7 +59,7 @@ the number of state_i transfer to state_j divide by the total number of transfer
 
 ### 3.Viterbi Algorithm
 
-for HMM, the most useful function is to find the most likely hddien sequence according to its observation,In general, the HMM problem can be described by the following five elements: 
+for HMM, the most useful function is to find the most likely implicit sequence according to its observation,In general, the HMM problem can be described by the following five elements: 
 ```
 observations ：we observed phenomenon sequence
 states ：all the possible implicit states
