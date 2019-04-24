@@ -20,7 +20,7 @@ for s in states[:-2]:
 
 The red line represent its emission probability from state after smoothing is 
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=B[i,j]=\frac{n(i,j)&plus;1}{n(i)&plus;M&plus;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?B[i,j]=\frac{n(i,j)&plus;1}{n(i)&plus;M&plus;1}" title="B[i,j]=\frac{n(i,j)+1}{n(i)+M+1}" /></a>
+<div align=center><a href="https://www.codecogs.com/eqnedit.php?latex=B[i,j]=\frac{n(i,j)&plus;1}{n(i)&plus;M&plus;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?B[i,j]=\frac{n(i,j)&plus;1}{n(i)&plus;M&plus;1}" title="B[i,j]=\frac{n(i,j)+1}{n(i)+M+1}" /></a></div>
 
 If the symbol is an unknown symbol, its emission probability from state after smoothing is
 
