@@ -1,4 +1,4 @@
-# DataMining-Project
+# DataMining-Project https://img.shields.io/static/v1.svg?label=<LABEL>&message=<US579>&color=<COLOR>
 
 How to run
 -----------
