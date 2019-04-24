@@ -15,10 +15,11 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
         lis = [j.strip().split() for j in st]
         for i in lis:
             distance[int(i[0])][int(i[1])] = int(i[2])
-
         for i in range(n1):
             for j in range(n1):
-                transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
+                    transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
+
+
     with open(Symbol_File) as f2:
         n2 = int(f2.readline())
         emission_probability = {}
@@ -53,6 +54,9 @@ def split(obs):
     lis_s = []
     for k in obs:
         for v in k:
+            if len(v) != 1 and '-' in v:
+                lis_sym.extend([v[:v.index('-')],'-',v[v.index('-')+1:]])
+                continue
             if v in flag:
                 lis_sym.append(v)
                 continue
@@ -108,7 +112,7 @@ def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_di
     # print('transition_probability',transition_probability)
     # print('emission_probability',emission_probability)
     return lis
-#
+
 State_File ='./dev_set/State_File'
 Symbol_File='./dev_set/Symbol_File'
 Query_File ='./dev_set/Query_File'
