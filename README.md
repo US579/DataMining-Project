@@ -16,11 +16,12 @@ python3 submission.py
 HMM and Viterbi Algorithem decription
 -----------
 
-In this case above, the output of the implicit sequence is
+In this case below, the output of the implicit sequence is
 
 ```
 [3, 0, 0, 1, 2, 4, -9.843403381747937]
 ```
+0:S1  1:S2  2:S3  3:BEGIN  4:END
 
 with log probility `-9.843403381747937`
 ![image text](https://github.com/US579/DataMining-Project/blob/master/image/HMM.png)
