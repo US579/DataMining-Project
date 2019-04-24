@@ -48,7 +48,7 @@ for i in range(n1):
 ```
 the number of state_i transfer to state_j divide by the total number of transfering state_j to any states , i also use add-1 smoothing here
 
-#### 3.Viterbi Algorithm
+### 3.Viterbi Algorithm
 
 for HMM, the most useful function is to find the most likely hddien sequence according to its observation, and we can describe as below 
 ```
@@ -58,7 +58,7 @@ start_probability ：the initial probilities of each hidden states
 transition_probability ：the probility of transfering from one hidden states to another
 emission_probability ：the probility of some hidden states emit some observed phenomenon 
 ```
-If you use the brute-force method to exhaust all possible state sequences and compare their probability values, the time complexity is O(n^m), obviously , this is unacceptable when we want to find a long sequnce whit large dataset, however, we candecrease its time complexity by using Viterbi Algorithemwe can consider this probelm as dynamic programming , the last_state is the probability of each implicit state corresponding to the previous observed phenomenon, and curr_pro is theprobability of each implicit state corresponding to the currentobserved phenomenon. Solving cur_pro actually depends only on last_state.
+If you use the brute-force method to exhaust all possible state sequences and compare their probability values, the time complexity is O(n^m), obviously , this is unacceptable when we want to find a long sequnce whit large dataset, however, we candecrease its time complexity by using Viterbi Algorithemwe can consider this probelm as dynamic programming , the last_state is the probability of each implicit state corresponding to the previous observed phenomenon, and curr_pro is theprobability of each implicit state corresponding to the currentobserved phenomenon. Solving cur_pro actually depends only on last_state, this is core thinking of Vitberi Algorithem.
 
 
 
