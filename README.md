@@ -21,11 +21,12 @@ In this case below, the output of the implicit sequence is
 ```
 [3, 0, 0, 1, 2, 4, -9.843403381747937]
 ```
+with log probility `-9.843403381747937` which is largest probility
 ##### Parameter breakdown
 ```
 0:S1       1:S2      2:S3     3:BEGIN      4:END
 ```
-with log probility `-9.843403381747937` with is largest probility
+
 ![image text](https://github.com/US579/DataMining-Project/blob/master/image/HMM.png)
 
 ### 1.Initial Probilities 
