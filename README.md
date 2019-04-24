@@ -5,9 +5,9 @@ HMM decription
 -----------
 ![image text](https://github.com/US579/DataMining-Project/blob/master/image/HMM.png)
 
-### 1.Tansition Probilities
+### 1.Initial Probilities 
 
-The blue line represent the  initial probability which can be deemed as equivalent to transition probabilities from the BEGIN state to all the hidden state
+The blue line represent the  initial probability (Pi) which can be deemed as equivalent to transition probabilities from the BEGIN state to all the hidden state
 
 So, we caculate as 
 
@@ -36,3 +36,17 @@ for i in range(1,len(obs)):
                 #otherwise i will use the formula below
                     emission_rate = emission_probability[str(cur)+'-'+str(sym.index(obs[i]))]
 ```
+
+### 2.Transition Probilities  
+
+The black line represent the transition probilities transfer the states from on to another 
+
+```
+        for i in range(n1):
+            for j in range(n1):
+                transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
+```
+the number of state_i transfer to state_j divide by the total number of transfering state_j to any states , i also use add-1 smoothing here
+
+
+
