@@ -13,7 +13,7 @@ simply run:
 python3 submission.py
 ```
 
-HMM and Viterbi Algorithem decription
+HMM and Viterbi Algorithem description
 -----------
 
 In this case below, the output of the implicit sequence is
