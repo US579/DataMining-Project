@@ -7,7 +7,7 @@ HMM decription
 
 ### 1.Initial Probilities 
 
-The blue line represent the  initial probability (Pi) which can be deemed as equivalent to transition probabilities from the BEGIN state to all the hidden state
+The blue line represent the  initial probability (Pi) which can be deemed as equivalent to transition probabilities from the BEGIN state to all the implicit state
 
 So, we caculate as 
 
@@ -53,10 +53,10 @@ the number of state_i transfer to state_j divide by the total number of transfer
 for HMM, the most useful function is to find the most likely hddien sequence according to its observation,In general, the HMM problem can be described by the following five elements: 
 ```
 observations ：we observed phenomenon sequence
-states ：all the possible hidden states
-start_probability ：the initial probilities of each hidden states
-transition_probability ：the probility of transfering from one hidden states to another
-emission_probability ：the probility of some hidden states emit some observed phenomenon 
+states ：all the possible implicit states
+start_probability ：the initial probilities of each implicit states
+transition_probability ：the probility of transfering from one implicit states to another
+emission_probability ：the probility of some implicit states emit some observed phenomenon 
 ```
 If you use the brute-force method to exhaust all possible state sequences and compare their probability values, the time complexity is O(n^m), obviously , this is unacceptable when we want to find a long sequnce with large dataset, however, we can decrease its time complexity by using Viterbi Algorithem, 
 
