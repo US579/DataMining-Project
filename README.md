@@ -50,7 +50,7 @@ the number of state_i transfer to state_j divide by the total number of transfer
 
 ### 3.Viterbi Algorithm
 
-for HMM, the most useful function is to find the most likely hddien sequence according to its observation, and we can describe as below 
+for HMM, the most useful function is to find the most likely hddien sequence according to its observation,In general, the HMM problem can be described by the following five elements: 
 ```
 observations ：we observed phenomenon sequence
 states ：all the possible hidden states
