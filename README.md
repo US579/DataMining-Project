@@ -42,9 +42,9 @@ for i in range(1,len(obs)):
 The black line represent the transition probilities transfer the states from on to another 
 
 ```
-        for i in range(n1):
-            for j in range(n1):
-                transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
+for i in range(n1):
+    for j in range(n1):
+        transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
 ```
 the number of state_i transfer to state_j divide by the total number of transfering state_j to any states , i also use add-1 smoothing here
 
