@@ -108,7 +108,7 @@ def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_di
     # print('transition_probability',transition_probability)
     # print('emission_probability',emission_probability)
     return lis
-
+#
 State_File ='./dev_set/State_File'
 Symbol_File='./dev_set/Symbol_File'
 Query_File ='./dev_set/Query_File'
