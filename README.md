@@ -8,7 +8,7 @@ State_File ='./toy_example/State_File'
 Symbol_File='./toy_example/Symbol_File'
 Query_File ='./toy_example/Query_File'
 ```
-simple run:
+simply run:
 ```
 python3 submission.py
 ```
