@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'US579'
 
-def test_wrong_sequence(output,answer):
+def test_wrong_sequence_error(output,answer):
     '''
     output : sumbission.py output
              fromat    [24, 0, 1, 2, 3, 18, 4, 18, 5, 6, 25, -58.407178051467]
