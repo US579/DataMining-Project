@@ -44,19 +44,20 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
         obs = [x.strip().split() for x in n3]
     obs = split(obs)
     lis = []
+    # print(obs[15])
+    # obs = obs[15]
+    #
+    # lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
     for obs in obs:
         lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
     return lis
 
 def split(obs):
-    flag = [',','(',')','/']
+    flag = [',','(',')','/','-']
     lis_sym = []
     lis_s = []
     for k in obs:
         for v in k:
-            if len(v) != 1 and '-' in v:
-                lis_sym.extend([v[:v.index('-')],'-',v[v.index('-')+1:]])
-                continue
             if v in flag:
                 lis_sym.append(v)
                 continue
@@ -65,6 +66,12 @@ def split(obs):
                 continue
             elif v[-1] in flag:
                 lis_sym.extend([v[:-1], v[-1]])
+                continue
+            if len(v) != 1 and '/' in v:
+                lis_sym.extend([v[:v.index('/')],'/',v[v.index('/')+1:]])
+                continue
+            if len(v) != 1 and '-' in v:
+                lis_sym.extend([v[:v.index('-')],'-',v[v.index('-')+1:]])
                 continue
             lis_sym.append(v)
         lis_s.append(lis_sym)
@@ -106,23 +113,18 @@ def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_di
     lis.append(states[-2])
     lis = [states.index(ele) for ele in lis[::-1]]
     lis.append(curr_pro[max_pr])
-    # print('obs',obs)
-    # print('states',states)
-    # print('sym',sym)
-    # print('transition_probability',transition_probability)
-    # print('emission_probability',emission_probability)
     return lis
 
-State_File ='./dev_set/State_File'
-Symbol_File='./dev_set/Symbol_File'
-Query_File ='./dev_set/Query_File'
+# State_File ='./dev_set/State_File'
+# Symbol_File='./dev_set/Symbol_File'
+# Query_File ='./dev_set/Query_File'
 
 # State_File ='./toy_example/State_File'
 # Symbol_File='./toy_example/Symbol_File'
 # Query_File ='./toy_example/Query_File'
-viterbi_result =viterbi_algorithm(State_File, Symbol_File, Query_File)
-for row in viterbi_result:
-    print(row)
+# viterbi_result =viterbi_algorithm(State_File, Symbol_File, Query_File)
+# for row in viterbi_result:
+#     print(row)
 
 
 # Question 2
