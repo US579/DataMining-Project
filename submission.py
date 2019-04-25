@@ -3,6 +3,12 @@ import math
 import numpy as np
 import pandas as pd
 import heapq
+
+###########################################################################################################
+# Viterbi Algorithm for HMM
+# dp, time complexity O(mn^2), m is the length of sequence of observation, n is the number of hidden states
+##########################################################################################################
+
 # Question 1
 def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the heading of the function
     lis = []
@@ -27,7 +33,7 @@ def file_reader(State_File, Symbol_File, Query_File):
             distance[int(i[0])][int(i[1])] = int(i[2])
         for i in range(n1):
             for j in range(n1):
-                    transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
+                    transition_probability[i][j] = (float(distance[i][j])) / (sum(distance[i])+n1-1)
 
     with open(Symbol_File) as f2:
         n2 = int(f2.readline())
@@ -121,7 +127,6 @@ def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_di
 
 
 # Question 2
-
 def text_processing(State_File, Symbol_File, Query_File):
     states = []
     sym = []
@@ -177,7 +182,6 @@ def text_processing(State_File, Symbol_File, Query_File):
     pi = list()
     for s in states[:-2]:
         pi.append(transition_probability[len(states) - 2][states.index(s)])
-
     return state_map, transition_probability, emission_probability, obs, pi, n1, n2, dic_distance
 
 def array_init(observation_count, state_count, top_k, emission_pro, observation, pi, dic_distance, n2):
