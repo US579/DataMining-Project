@@ -33,7 +33,7 @@ def file_reader(State_File, Symbol_File, Query_File):
             distance[int(i[0])][int(i[1])] = int(i[2])
         for i in range(n1):
             for j in range(n1):
-                    transition_probability[i][j] = (float(distance[i][j])) / (sum(distance[i])+n1-1)
+                    transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
 
     with open(Symbol_File) as f2:
         n2 = int(f2.readline())
