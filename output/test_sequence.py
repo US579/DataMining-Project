@@ -3,10 +3,11 @@ __author__ = 'US579'
 
 def test_wrong_sequence(output,answer):
     '''
-    output : sumbission.py output  [24, 0, 1, 2, 3, 18, 4, 18, 5, 6, 25, -58.407178051467]
+    output : sumbission.py output
+             fromat    [24, 0, 1, 2, 3, 18, 4, 18, 5, 6, 25, -58.407178051467]
+
     answer : Query_Label file
 
-    
     automatic compare 
     1  ['24', '0', '1', '2', '3', '18', '4', '18', '5', '6', '25']  11  <--this is length
        ['24', '10', '1', '2', '3', '18', '4', '18', '5', '6', '25']  11 
@@ -65,3 +66,7 @@ def test_wrong_sequence(output,answer):
 output = '/Users/us579/Desktop/19S1/DataMining-Project/output.txt'
 answer = '/Users/us579/Desktop/19S1/DataMining-Project/dev_set/Query_Label'
 test_wrong_sequence(output,answer)
+
+'''
+python3 test_sequence.py > compare.txt
+'''

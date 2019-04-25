@@ -44,10 +44,6 @@ def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the 
         obs = [x.strip().split() for x in n3]
     obs = split(obs)
     lis = []
-    # print(obs[15])
-    # obs = obs[15]
-    #
-    # lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
     for obs in obs:
         lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
     return lis
