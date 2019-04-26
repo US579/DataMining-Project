@@ -1,7 +1,6 @@
 # -*- codeing:utf-8 -*-
 import math
 import numpy as np
-import pandas as pd
 import heapq
 
 ###########################################################################################################
@@ -11,12 +10,9 @@ import heapq
 
 # Question 1
 def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the heading of the function
-    lis = []
     states, obs, transition_probability, emission_probability, sym, n2, dic_distance =\
         file_reader(State_File, Symbol_File, Query_File)
-    for obs in obs:
-        lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
-    return lis
+    return [viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance) for obs in obs]
 
 def file_reader(State_File, Symbol_File, Query_File):
     states = []
