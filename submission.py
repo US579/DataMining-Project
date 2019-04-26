@@ -12,16 +12,15 @@ import heapq
 # Question 1
 def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the heading of the function
     lis = []
-    states, obs, transition_probability, emission_probability, sym, n2, dic_distance,alpha =\
+    states, obs, transition_probability, emission_probability, sym, n2, dic_distance =\
         file_reader(State_File, Symbol_File, Query_File)
     for obs in obs:
-        lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance,alpha))
+        lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
     return lis
 
 def file_reader(State_File, Symbol_File, Query_File):
     states = []
     sym = []
-    alpha = 0.2
     with open(State_File) as f1:
         n1 = int(f1.readline())
         distance = np.zeros((n1,n1))
@@ -34,7 +33,7 @@ def file_reader(State_File, Symbol_File, Query_File):
             distance[int(i[0])][int(i[1])] = int(i[2])
         for i in range(n1):
             for j in range(n1):
-                    transition_probability[i][j] = (float(distance[i][j])+alpha) / (sum(distance[i])+alpha*(n1-1))
+                    transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
 
     with open(Symbol_File) as f2:
         n2 = int(f2.readline())
@@ -54,12 +53,12 @@ def file_reader(State_File, Symbol_File, Query_File):
             dic_distance[int(i[0])] += int(i[2])
 
     for i in lis2:
-        emission_probability[i[0]+'-'+i[1]] =(alpha*(float(i[2])+1)) / (dic_distance[int(i[0])]+alpha*(n2 +1))
+        emission_probability[i[0]+'-'+i[1]] =(float(i[2])+1) / (dic_distance[int(i[0])] + n2 +1)
     with open(Query_File) as f3:
         n3 = f3.readlines()
         obs = [x.strip().split() for x in n3]
     obs = split(obs)
-    return states, obs, transition_probability, emission_probability, sym, n2, dic_distance,alpha
+    return states, obs, transition_probability, emission_probability, sym, n2, dic_distance
 
 
 def split(obs):
@@ -88,7 +87,7 @@ def split(obs):
         lis_sym = []
     return lis_s
 
-def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance,alpha):
+def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance):
     path = {s:[] for s in states}
     curr_pro = {}
     for s in states[:-2]:
@@ -104,14 +103,14 @@ def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_di
         for cur in range(len(states[:-2])):
             try:
                 if str(cur)+'-'+str(sym.index(obs[i])) not in emission_probability:
-                    emission_rate = alpha / (dic_distance[cur] +alpha*(n2 +1))
+                    emission_rate = 1.0 / (dic_distance[cur] + n2 +1)
                 else:
                     emission_rate = emission_probability[str(cur)+'-'+str(sym.index(obs[i]))]
                 (max_pr,last_state) = max([(last_pro[k]+math.log(transition_probability[states.index(k)][cur])+
                                             math.log(emission_rate), k) for k in states[:-2]])
             except:
                 (max_pr,last_state) = max([(last_pro[k] +math.log(transition_probability[states.index(k)][cur])+
-                                            math.log (alpha/(dic_distance[cur]+alpha*(n2 +1))), k) for k in states[:-2]])
+                                            math.log (1.0/(dic_distance[cur]+n2 +1)), k) for k in states[:-2]])
             curr_pro[states[cur]] = max_pr
             path[states[cur]].append(last_state)
     for i in states[:-2]:
@@ -323,7 +322,7 @@ if __name__ == "__main__":
     viterbi_result = viterbi_algorithm(State_File, Symbol_File, Query_File)
     for row in viterbi_result:
         print(row)
-    # print("====================Top K Viterbi====================")
-    # top_result = top_k_viterbi(State_File, Symbol_File, Query_File, 4)
-    # for row in top_result:
-    #     print(row)
+    print("====================Top K Viterbi====================")
+    top_result = top_k_viterbi(State_File, Symbol_File, Query_File, 4)
+    for row in top_result:
+        print(row)
