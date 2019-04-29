@@ -1,20 +1,19 @@
 # -*- codeing:utf-8 -*-
 import math
 import numpy as np
+import pandas as pd
 import heapq
-
-###########################################################################################################
-# Viterbi Algorithm for HMM
-# dp, time complexity O(mn^2), m is the length of sequence of observation, n is the number of hidden states
-##########################################################################################################
-
 # Question 1
 def viterbi_algorithm(State_File, Symbol_File, Query_File): # do not change the heading of the function
+    lis = []
     states, obs, transition_probability, emission_probability, sym, n2, dic_distance =\
         file_reader(State_File, Symbol_File, Query_File)
-    return [viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance) for obs in obs]
+    for obs in obs:
+        lis.append(viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_distance))
+    return lis
 
-def file_reader(State_File, Symbol_File, Query_File):
+
+def file_reader(State_File, Symbol_File, Query_File, smooth_rate=1.0):
     states = []
     sym = []
     with open(State_File) as f1:
@@ -29,7 +28,8 @@ def file_reader(State_File, Symbol_File, Query_File):
             distance[int(i[0])][int(i[1])] = int(i[2])
         for i in range(n1):
             for j in range(n1):
-                    transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
+                transition_probability[i][j] = (float(distance[i][j])+smooth_rate) / (sum(distance[i])+
+                                                                                      smooth_rate * n1-1)
 
     with open(Symbol_File) as f2:
         n2 = int(f2.readline())
@@ -49,7 +49,7 @@ def file_reader(State_File, Symbol_File, Query_File):
             dic_distance[int(i[0])] += int(i[2])
 
     for i in lis2:
-        emission_probability[i[0]+'-'+i[1]] =(float(i[2])+1) / (dic_distance[int(i[0])] + n2 +1)
+        emission_probability[i[0]+'-'+i[1]] =(float(i[2])+1) / (dic_distance[int(i[0])] + smooth_rate * n2 +1)
     with open(Query_File) as f3:
         n3 = f3.readlines()
         obs = [x.strip().split() for x in n3]
@@ -123,6 +123,7 @@ def viterbi(states,obs,transition_probability,emission_probability,sym,n2,dic_di
 
 
 # Question 2
+
 def text_processing(State_File, Symbol_File, Query_File):
     states = []
     sym = []
@@ -149,13 +150,6 @@ def text_processing(State_File, Symbol_File, Query_File):
         st2 = f2.readlines()
         lis2 = [j.strip().split() for j in st2]
 
-    n_label = dict()
-    for i in lis2:
-        if int(i[0]) not in n_label:
-            n_label[int(i[0])] = 1
-        else:
-            n_label[int(i[0])] += 1
-
     state_map = dict()
     for num, words in enumerate(sym):
         state_map[words] = num
@@ -178,6 +172,7 @@ def text_processing(State_File, Symbol_File, Query_File):
     pi = list()
     for s in states[:-2]:
         pi.append(transition_probability[len(states) - 2][states.index(s)])
+
     return state_map, transition_probability, emission_probability, obs, pi, n1, n2, dic_distance
 
 def array_init(observation_count, state_count, top_k, emission_pro, observation, pi, dic_distance, n2):
@@ -302,7 +297,12 @@ def top_k_algorithm(pi, transmission_pro, emission_pro, observation, top_k, n1, 
 
 # Question 3 + Bonus
 def advanced_decoding(State_File, Symbol_File, Query_File): # do not change the heading of the function
-    pass # Replace this line with your implementation...
+    lis = []
+    states, obs, transition_probability, emission_probability, sym, n2, dic_distance = \
+        file_reader(State_File, Symbol_File, Query_File, smooth_rate=0.0001)
+    for obs in obs:
+        lis.append(viterbi(states, obs, transition_probability, emission_probability, sym, n2, dic_distance))
+    return lis
 
 
 
@@ -314,11 +314,15 @@ if __name__ == "__main__":
     # State_File = './toy_example/State_File'
     # Symbol_File = './toy_example/Symbol_File'
     # Query_File = './toy_example/Query_File'
-    print("====================The implict sequence ====================")
-    viterbi_result = viterbi_algorithm(State_File, Symbol_File, Query_File)
-    for row in viterbi_result:
-        print(row)
-    print("====================Top K Viterbi====================")
-    top_result = top_k_viterbi(State_File, Symbol_File, Query_File, 4)
-    for row in top_result:
+    # print("====================The implict sequence ====================")
+    # viterbi_result = viterbi_algorithm(State_File, Symbol_File, Query_File)
+    # for row in viterbi_result:
+    #     print(row)
+    # print("====================Top K Viterbi====================")
+    # top_result = top_k_viterbi(State_File, Symbol_File, Query_File, 4)
+    # for row in top_result:
+    #     print(row)
+    print("====================Advanced Decoding====================")
+    adv_result = advanced_decoding(State_File, Symbol_File, Query_File)
+    for row in adv_result:
         print(row)

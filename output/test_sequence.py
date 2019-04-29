@@ -53,19 +53,25 @@ def test_wrong_sequence_error(output,answer):
         for i in b:
             lis2.append(i.split())
 
-
+    num = 0
     for v in range(len(lis)):
+
         print('{}  {}  {}'.format(v+1,lis[v],len(lis[v])))
         print('    {}  {}'.format(lis2[v],len(lis2[v])))
         print()
         print()
+        for k in range(len(lis[v])):
+            if lis[v][k] != lis2[v][k]:
+                num+= 1
+    print("the total different number is: {}".format(num))
+
 
 
 
 
 output = '/Users/us579/Desktop/19S1/DataMining-Project/output.txt'
 answer = '/Users/us579/Desktop/19S1/DataMining-Project/dev_set/Query_Label'
-test_wrong_sequence(output,answer)
+test_wrong_sequence_error(output,answer)
 
 '''
 python3 test_sequence.py > compare.txt
