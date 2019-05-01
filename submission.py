@@ -49,7 +49,7 @@ def file_reader(State_File, Symbol_File, Query_File, smooth_rate=1.0):
             dic_distance[int(i[0])] += int(i[2])
 
     for i in lis2:
-        emission_probability[i[0]+'-'+i[1]] =(float(i[2])+1) / (dic_distance[int(i[0])] + smooth_rate * n2 +1)
+        emission_probability[i[0]+'-'+i[1]] =(float(i[2])+smooth_rate*1) / (dic_distance[int(i[0])] + smooth_rate * (n2 +1))
     with open(Query_File) as f3:
         n3 = f3.readlines()
         obs = [x.strip().split() for x in n3]
@@ -299,7 +299,7 @@ def top_k_algorithm(pi, transmission_pro, emission_pro, observation, top_k, n1, 
 def advanced_decoding(State_File, Symbol_File, Query_File): # do not change the heading of the function
     lis = []
     states, obs, transition_probability, emission_probability, sym, n2, dic_distance = \
-        file_reader(State_File, Symbol_File, Query_File, smooth_rate=0.0001)
+        file_reader(State_File, Symbol_File, Query_File, smooth_rate=0.00001)
     for obs in obs:
         lis.append(viterbi(states, obs, transition_probability, emission_probability, sym, n2, dic_distance))
     return lis
