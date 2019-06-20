@@ -34,8 +34,7 @@ with log probility `-9.843403381747937` which is largest probility
 The blue line represent the  initial probability (Pi) which can be deemed as equivalent to transition probabilities from the BEGIN state to all the implicit state
 
 So, we caculate as 
-
-```
+```python
 for s in states[:-2]:
     transition_probability[len(states)-2][states.index(s)])
 ```
@@ -50,7 +49,7 @@ If the symbol is an unknown symbol, its emission probability from state after sm
 
 <div align=center><a href="https://www.codecogs.com/eqnedit.php?latex=B[i,j]=\frac{1}{n(i)&plus;M&plus;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?B[i,j]=\frac{1}{n(i)&plus;M&plus;1}" title="B[i,j]=\frac{1}{n(i)+M+1}" /></a></div>
 
-```
+```python
 for i in range(1,len(obs)):
     for cur in range(len(states[:-2])):
                 #if there is no emission from states `cur` to observation `sym.index(obs[i])`(this is the index in the symbol list),we us add one smoothing (in case it is 0)
@@ -65,7 +64,7 @@ for i in range(1,len(obs)):
 
 The black line represent the transition probilities transfer the states from on to another 
 
-```
+```python
 for i in range(n1):
     for j in range(n1):
         transition_probability[i][j] = (float(distance[i][j])+1) / (sum(distance[i])+n1-1)
@@ -87,7 +86,7 @@ If you use the brute-force method to exhaust all possible state sequences and co
 we can consider this probelm as dynamic programming , the last_state is the probability of each implicit state corresponding to the previous observed phenomenon, and curr_pro is the probability of each implicit state corresponding to the current observed phenomenon. Solving cur_pro actually depends only on last_state, this is core thinking of Vitberi Algorithem.
 
 #### MAIN ALGORITHEM
-```
+```python
 def Viterbi_Algorithm(states,obs,emission_probability,transition_probability):
         '''
         caculate maximum probility of the path , and return as a dict,
