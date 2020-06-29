@@ -1,4 +1,4 @@
-# DataMining-Project  ![US579](https://img.shields.io/static/v1.svg?label=US579&message=HMM&color=<BLUE>)
+# HMM  ![US579](https://img.shields.io/static/v1.svg?label=US579&message=HMM&color=<BLUE>)
 
 How to run
 -----------
